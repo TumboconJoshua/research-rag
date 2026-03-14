@@ -14,7 +14,6 @@ import {
 } from "lucide-react";
 import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { DocumentLibrary } from "@/components/DocumentLibrary";
 import { cn } from "@/lib/utils";
 import ThemeToggle from "@/components/ThemeToggle";
 
@@ -207,10 +206,6 @@ export default function LandingPage() {
             </div>
           ))}
         </div>
-
-        {/* Document Library */}
-        <DocumentLibrary />
-
       </div>
     </main>
   );

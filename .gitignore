@@ -22,7 +22,8 @@ backend/*$py.class
 backend/.pytest_cache/
 backend/.venv/
 backend/.env
-backend/env
+backend/env/
+.env
 
 # Database/Storage
 storage/
