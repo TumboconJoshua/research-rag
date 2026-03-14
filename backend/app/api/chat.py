@@ -39,7 +39,7 @@ def _format_history(history: list[ChatMessage]) -> str:
 
 @router.post("/chat", response_model=ChatResponse)
 @limiter.limit("20/minute")
-async def chat(http_request: Request, request: ChatRequest):
+async def chat(request: Request, body: ChatRequest):
     """
     Conversational RAG endpoint. Retrieves relevant document chunks,
     assembles a contextualized prompt, and queries Gemini for an answer.
@@ -49,19 +49,19 @@ async def chat(http_request: Request, request: ChatRequest):
 
     try:
         context, raw_chunks = retrieve_context(
-            document_id=request.document_id,
-            query=request.message,
+            document_id=body.document_id,
+            query=body.message,
         )
     except Exception as exc:
-        logger.error("chat_retrieval_failed", document_id=request.document_id, error=str(exc))
+        logger.error("chat_retrieval_failed", document_id=body.document_id, error=str(exc))
         raise HTTPException(status_code=500, detail="Failed to retrieve document context.") from exc
 
-    history_str = _format_history(request.history)
+    history_str = _format_history(body.history)
 
     prompt = CHAT_USER.format(
         retrieved_chunks=context,
         history=history_str,
-        user_question=request.message,
+        user_question=body.message,
     )
 
     model = genai.GenerativeModel(

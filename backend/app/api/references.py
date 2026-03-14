@@ -19,16 +19,16 @@ class ValidateRequest(BaseModel):
 
 @router.post("/validate-references", response_model=ValidationReport)
 @limiter.limit("5/minute")
-async def validate_references_endpoint(http_request: Request, request: ValidateRequest):
+async def validate_references_endpoint(request: Request, body: ValidateRequest):
     """
     Extract all references from a document and validate them against
     Crossref, Semantic Scholar, and OpenAlex APIs.
     """
-    document_id = request.document_id
+    document_id = body.document_id
 
     # Get document text — either passed directly or reconstructed from chunks
-    if request.raw_text:
-        text = request.raw_text
+    if body.raw_text:
+        text = body.raw_text
     else:
         # Retrieve reference-section chunks from vector store
         chunks = search_chunks(

@@ -1,6 +1,6 @@
 """FastAPI application entry point."""
 from contextlib import asynccontextmanager
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from app.api.router import router
 from app.config import get_settings
@@ -48,7 +48,7 @@ def create_app() -> FastAPI:
     app.include_router(router)
 
     @app.get("/health", tags=["Health"])
-    async def health():
+    async def health(request: Request):
         return {"status": "ok", "version": "1.0.0"}
 
     return app
