@@ -49,6 +49,12 @@ async def analyze_research_paper(text: str) -> dict:
 
     try:
         response = model.generate_content(prompt)
+        # Check if the model blocked the response
+        if response.candidates and response.candidates[0].finish_reason != 1:
+            reason = response.candidates[0].finish_reason
+            logger.warning("ai_generation_blocked", reason=reason, safety_ratings=response.prompt_feedback)
+            raise ValueError(f"AI content generation blocked. Reason: {reason}")
+
         raw = response.text
         data = _parse_json_response(raw)
 
@@ -56,8 +62,12 @@ async def analyze_research_paper(text: str) -> dict:
         return data
 
     except json.JSONDecodeError as exc:
-        logger.error("analysis_json_parse_error", error=str(exc), raw=response.text[:500])
+        logger.error("analysis_json_parse_error", error=str(exc), raw=response.text[:500] if 'response' in locals() else "N/A")
         raise ValueError(f"AI returned invalid JSON: {exc}") from exc
     except Exception as exc:
-        logger.error("analysis_failed", document_id=document_id, error=str(exc))
+        error_msg = str(exc)
+        if "429" in error_msg or "ResourceExhausted" in error_msg:
+            logger.error("ai_quota_exhausted", error=error_msg)
+        else:
+            logger.error("analysis_failed", error=error_msg)
         raise

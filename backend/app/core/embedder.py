@@ -29,22 +29,26 @@ def embed_texts(texts: list[str], task_type: str = "RETRIEVAL_DOCUMENT") -> list
     settings = get_settings()
 
     try:
-        print(f"DEBUG: Embedding {len(texts)} texts...")
+        logger.debug("generating_embeddings", count=len(texts))
         result = genai.embed_content(
             model=settings.gemini_embedding_model,
             content=texts,
             task_type=task_type,
         )
         embeddings = result["embedding"]
-        print(f"DEBUG: Successfully received {len(embeddings)} embeddings")
+        
         # API returns a single list when input is a list — normalize
         if isinstance(embeddings[0], float):
             embeddings = [embeddings]
+            
         logger.info("embeddings_generated", count=len(embeddings))
         return embeddings
     except Exception as exc:
-        print(f"DEBUG: Embedding failed with error: {exc}")
-        logger.error("embedding_failed", error=str(exc))
+        error_msg = str(exc)
+        if "429" in error_msg or "ResourceExhausted" in error_msg:
+            logger.error("embedding_quota_exhausted", error=error_msg)
+        else:
+            logger.error("embedding_failed", error=error_msg)
         raise
 
 

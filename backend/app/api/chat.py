@@ -72,9 +72,20 @@ async def chat(request: Request, body: ChatRequest):
 
     try:
         response = model.generate_content(prompt)
+        # Check if model blocked response (safety or other reasons)
+        if response.candidates and response.candidates[0].finish_reason != 1:
+            reason = response.candidates[0].finish_reason
+            logger.warning("chat_blocked", reason=reason, document_id=body.document_id)
+            raise HTTPException(status_code=400, detail=f"AI blocked the response due to content safety. (Reason: {reason})")
+            
         answer = response.text.strip()
     except Exception as exc:
-        logger.error("chat_llm_failed", error=str(exc))
+        error_msg = str(exc)
+        if "429" in error_msg or "ResourceExhausted" in error_msg:
+            logger.error("ai_quota_exhausted", error=error_msg, document_id=body.document_id)
+            raise HTTPException(status_code=429, detail="AI service quota exhausted. Please try again in a minute.")
+        
+        logger.error("chat_llm_failed", error=error_msg, document_id=body.document_id)
         raise HTTPException(status_code=500, detail="AI response generation failed.") from exc
 
     # Build source labels from retrieved chunks
