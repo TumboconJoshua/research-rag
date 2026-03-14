@@ -52,12 +52,12 @@ export function QualityReport({ data }: { data: AnalysisResult }) {
     data.research_quality_score >= 6 ? "text-amber-400" : "text-rose-400";
 
   return (
-    <div className="space-y-8 animate-fade-in text-gray-200">
+    <div className="space-y-8 animate-fade-in text-[var(--text-primary)]">
       {/* Overall Score Header */}
-      <div className="glass-card p-8 flex flex-col md:flex-row items-center gap-8 bg-gradient-to-br from-[#1a2035] to-[#0e1120]">
+      <div className="glass-card p-8 flex flex-col md:flex-row items-center gap-8 bg-[var(--bg-elevated)]">
         <div className="flex-shrink-0 relative">
           <svg className="w-40 h-40 transform -rotate-90">
-            <circle cx="80" cy="80" r="70" stroke="currentColor" strokeWidth="12" fill="transparent" className="text-gray-800" />
+            <circle cx="80" cy="80" r="70" stroke="currentColor" strokeWidth="12" fill="transparent" className="text-[var(--border)]" />
             <circle
               cx="80" cy="80" r="70" stroke="currentColor" strokeWidth="12" fill="transparent"
               strokeDasharray={440}
@@ -68,14 +68,14 @@ export function QualityReport({ data }: { data: AnalysisResult }) {
           </svg>
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
             <span className={cn("text-4xl font-bold block", overallClass)}>{data.research_quality_score.toFixed(1)}</span>
-            <span className="text-xs text-gray-400 uppercase tracking-widest mt-1 block">Overall</span>
+            <span className="text-xs text-[var(--text-muted)] uppercase tracking-widest mt-1 block">Overall</span>
           </div>
         </div>
 
         <div>
           <h2 className="text-2xl font-semibold mb-3">Overall Research Quality</h2>
-          <p className="text-gray-400 leading-relaxed max-w-2xl">
-            This paper demonstrates <strong className="text-gray-200">{data.research_quality_score >= 8 ? "strong" : data.research_quality_score >= 6 ? "moderate" : "weak"}</strong> 
+          <p className="text-[var(--text-secondary)] leading-relaxed max-w-2xl">
+            This paper demonstrates <strong className="text-[var(--text-primary)]">{data.research_quality_score >= 8 ? "strong" : data.research_quality_score >= 6 ? "moderate" : "weak"}</strong> 
             {" "}methodology and logical flow. Based on the analysis, the research provides 
             {" "}{data.strengths.length > 0 ? "valuable contributions" : "limited contributions"} 
             {" "}but has {data.weaknesses.length} key areas for improvement.
@@ -164,7 +164,7 @@ function InsightsPanel({ title, items, icon: Icon, theme }: { title: string, ite
       </div>
       <ul className="space-y-3">
         {items.map((item, i) => (
-          <li key={i} className="flex items-start gap-3 text-sm text-gray-300">
+          <li key={i} className="flex items-start gap-3 text-sm text-[var(--text-secondary)]">
             <span className={cn("mt-1 flex-shrink-0 w-1.5 h-1.5 rounded-full", iconColors[theme].replace("text-", "bg-"))} />
             <span className="leading-relaxed">{item}</span>
           </li>

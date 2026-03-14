@@ -8,11 +8,11 @@ export function MessageBubble({ message }: { message: ChatMessage }) {
     <div className={`flex gap-4 w-full ${isUser ? "flex-row-reverse" : ""}`}>
       {/* Avatar */}
       <div className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center
-        bg-gray-800 border border-gray-700 mt-1 shadow-sm">
+        bg-[var(--bg-elevated)] border border-[var(--border)] mt-1 shadow-sm">
         {isUser ? (
-          <User size={16} className="text-gray-300" />
+          <User size={16} className="text-[var(--text-secondary)]" />
         ) : (
-          <Bot size={16} className="text-indigo-400" />
+          <Bot size={16} className="text-indigo-500" />
         )}
       </div>
 
@@ -22,7 +22,7 @@ export function MessageBubble({ message }: { message: ChatMessage }) {
           className={`px-5 py-3.5 text-[0.95rem] leading-[1.6] shadow-sm whitespace-pre-wrap
           ${isUser
               ? "bg-gradient-to-br from-indigo-600 to-indigo-500 text-white rounded-[20px] rounded-tr-md"
-              : "bg-[#161b2e] border border-indigo-500/10 text-gray-200 rounded-[20px] rounded-tl-md"
+              : "bg-[var(--bg-elevated)] border border-indigo-500/10 text-[var(--text-primary)] rounded-[20px] rounded-tl-md"
             }`}
         >
           {message.content}
@@ -30,7 +30,7 @@ export function MessageBubble({ message }: { message: ChatMessage }) {
 
         {/* Source citation handling if assistant */}
         {!isUser && message.content.includes("[Excerpt") && (
-          <div className="mt-2 text-xs text-gray-500 flex items-center gap-1.5 px-2">
+          <div className="mt-2 text-xs text-[var(--text-muted)] flex items-center gap-1.5 px-2 font-medium">
             <TextQuote size={12} />
             <span>Sourced from document context</span>
           </div>

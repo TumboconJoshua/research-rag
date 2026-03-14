@@ -29,6 +29,28 @@
 
   --font-sans: "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", monospace;
+
+  --glow-opacity: 0.35;
+  --grid-opacity: 0.04;
+  --glass-bg: rgba(22, 27, 46, 0.7);
+}
+
+.light {
+  --bg-base: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-elevated: #f1f5f9;
+  --bg-card: #ffffff;
+  --border: rgba(99, 102, 241, 0.1);
+  --border-hover: rgba(99, 102, 241, 0.25);
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+
+  --accent-glow: rgba(99, 102, 241, 0.15);
+  --glow-opacity: 0.15;
+  --grid-opacity: 0.06;
+  --glass-bg: rgba(255, 255, 255, 0.8);
 }
 
 @theme inline {
@@ -71,14 +93,14 @@ body {
 /* ── Animated background ────────────────────────────── */
 .bg-grid {
   background-image:
-    linear-gradient(rgba(99, 102, 241, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(99, 102, 241, 0.04) 1px, transparent 1px);
+    linear-gradient(rgba(99, 102, 241, var(--grid-opacity)) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, var(--grid-opacity)) 1px, transparent 1px);
   background-size: 48px 48px;
 }
 
 /* ── Glass Card ─────────────────────────────────────── */
 .glass-card {
-  background: rgba(22, 27, 46, 0.7);
+  background: var(--glass-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   backdrop-filter: blur(16px);

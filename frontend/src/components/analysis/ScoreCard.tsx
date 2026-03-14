@@ -28,10 +28,10 @@ export function ScoreCard({ title, score, icon: Icon, description }: ScoreCardPr
           <div className="p-2 rounded-lg" style={{ background: "var(--bg-elevated)", border: "1px solid var(--border)" }}>
             <Icon size={18} style={{ color: "var(--text-secondary)" }} />
           </div>
-          <h3 className="font-medium text-sm text-gray-200">{title}</h3>
+          <h3 className="font-medium text-sm text-[var(--text-primary)]">{title}</h3>
         </div>
         <div className={cn("text-2xl font-bold tracking-tight", colorClass)}>
-          {formatScore(score)}<span className="text-sm font-medium text-gray-500">/10</span>
+          {formatScore(score)}<span className="text-sm font-medium text-[var(--text-muted)]">/10</span>
         </div>
       </div>
 
@@ -47,7 +47,7 @@ export function ScoreCard({ title, score, icon: Icon, description }: ScoreCardPr
             style={{ width: `${percentage}%` }}
           />
         </div>
-        <p className="text-xs text-gray-400 leading-relaxed">{description}</p>
+        <p className="text-xs text-[var(--text-secondary)] leading-relaxed">{description}</p>
       </div>
     </div>
   );

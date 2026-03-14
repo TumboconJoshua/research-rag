@@ -83,5 +83,5 @@ async def chat(request: Request, body: ChatRequest):
         for chunk in raw_chunks
     })
 
-    logger.info("chat_response", document_id=request.document_id, question=request.message[:60])
+    logger.info("chat_response", document_id=body.document_id, question=body.message[:60])
     return ChatResponse(answer=answer, sources=sources)

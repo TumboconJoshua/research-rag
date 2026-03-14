@@ -10,7 +10,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "ResearchRAG — AI Research Paper Analyzer",
+  title: "VeriPy — AI Research Paper Analyzer",
   description:
     "Upload academic papers for AI-powered quality analysis, reference validation, and conversational Q&A powered by Google Gemini.",
   keywords: ["research", "RAG", "AI", "citation validation", "academic", "Gemini"],

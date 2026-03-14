@@ -35,17 +35,17 @@ export function ChatPanel({ history, input, isLoading, onInputChange, onSend }: 
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-280px)] glass-card border border-gray-800 rounded-xl overflow-hidden animate-fade-in bg-[#0e1120]">
+    <div className="flex flex-col h-[calc(100vh-280px)] glass-card border border-[var(--border)] rounded-xl overflow-hidden animate-fade-in bg-[var(--bg-surface)]">
 
       {/* Messages Area */}
       <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-8 scroll-smooth" id="chat-messages">
         {history.length === 0 ? (
           <div className="h-full flex flex-col items-center justify-center text-center px-4">
             <div className="w-16 h-16 rounded-full bg-indigo-500/10 flex items-center justify-center mb-4">
-              <BotMessageSquare size={32} className="text-indigo-400" />
+              <BotMessageSquare size={32} className="text-indigo-500" />
             </div>
-            <h3 className="text-xl font-semibold mb-2 text-gray-200">Ask ResearchRAG</h3>
-            <p className="text-gray-400 text-sm max-w-[300px] leading-relaxed mb-6">
+            <h3 className="text-xl font-semibold mb-2 text-[var(--text-primary)]">Ask ResearchRAG</h3>
+            <p className="text-[var(--text-secondary)] text-sm max-w-[300px] leading-relaxed mb-6">
               I can answer logic, summarize findings, and explain complex concepts 
               using only information from the uploaded document.
             </p>
@@ -55,13 +55,13 @@ export function ChatPanel({ history, input, isLoading, onInputChange, onSend }: 
               {SUGGESTED.map((q) => (
                 <button
                   key={q}
-                  className="px-4 py-2 bg-gray-900 border border-gray-800 rounded-full text-sm text-gray-300 hover:text-indigo-300 hover:border-indigo-500/30 hover:bg-indigo-500/10 transition-all font-medium flex items-center gap-2 group"
+                  className="px-4 py-2 bg-[var(--bg-elevated)] border border-[var(--border)] rounded-full text-sm text-[var(--text-secondary)] hover:text-indigo-500 hover:border-indigo-500/30 hover:bg-indigo-500/10 transition-all font-medium flex items-center gap-2 group"
                   onClick={() => {
                     onInputChange(q);
                     setTimeout(onSend, 50);
                   }}
                 >
-                  <Link size={12} className="text-gray-500 group-hover:text-indigo-400" />
+                  <Link size={12} className="text-[var(--text-muted)] group-hover:text-indigo-400" />
                   {q}
                 </button>
               ))}
@@ -76,11 +76,11 @@ export function ChatPanel({ history, input, isLoading, onInputChange, onSend }: 
             {/* Loading Indicator */}
             {isLoading && (
               <div className="flex gap-4 w-full">
-                <div className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center bg-gray-800 border border-gray-700 shadow-sm mt-1">
-                  <BotMessageSquare size={16} className="text-indigo-400" />
+                <div className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center bg-[var(--bg-elevated)] border border-[var(--border)] shadow-sm mt-1">
+                  <BotMessageSquare size={16} className="text-indigo-500" />
                 </div>
                 <div className="flex flex-col items-start pt-2">
-                  <div className="flex items-center gap-2 px-5 py-3.5 bg-[#161b2e] border border-indigo-500/10 text-gray-400 rounded-[20px] rounded-tl-md shadow-sm">
+                  <div className="flex items-center gap-2 px-5 py-3.5 bg-[var(--bg-elevated)] border border-indigo-500/10 text-[var(--text-secondary)] rounded-[20px] rounded-tl-md shadow-sm">
                     <Loader2 size={16} className="animate-spin" />
                     <span className="text-sm font-medium tracking-wide">Retrieving context...</span>
                   </div>
@@ -93,10 +93,10 @@ export function ChatPanel({ history, input, isLoading, onInputChange, onSend }: 
       </div>
 
       {/* Input Area */}
-      <div className="p-4 border-t border-gray-800 bg-gray-900/50">
-        <div className="relative flex items-end gap-2 bg-[#1a2035] p-2 rounded-2xl border border-gray-700/50 shadow-inner group focus-within:border-indigo-500/50 focus-within:ring-1 focus-within:ring-indigo-500/20 transition-all">
+      <div className="p-4 border-t border-[var(--border)] bg-[var(--bg-elevated)]">
+        <div className="relative flex items-end gap-2 bg-[var(--bg-surface)] p-2 rounded-2xl border border-[var(--border)] shadow-inner group focus-within:border-indigo-500/50 focus-within:ring-1 focus-within:ring-indigo-500/20 transition-all">
           <textarea
-            className="flex-1 max-h-40 min-h-[44px] bg-transparent border-none text-gray-200 resize-none py-2.5 px-4 outline-none placeholder:text-gray-500"
+            className="flex-1 max-h-40 min-h-[44px] bg-transparent border-none text-[var(--text-primary)] resize-none py-2.5 px-4 outline-none placeholder:text-[var(--text-muted)]"
             rows={1}
             value={input}
             onChange={(e) => {
@@ -121,9 +121,9 @@ export function ChatPanel({ history, input, isLoading, onInputChange, onSend }: 
             )}
           </button>
         </div>
-        <p className="text-center text-xs text-gray-500 mt-3 flex items-center justify-center gap-1.5 font-medium">
-          <BotMessageSquare size={12} className="text-gray-600" />
-          ResearchRAG only answers using the provided document context.
+        <p className="text-center text-xs text-[var(--text-muted)] mt-3 flex items-center justify-center gap-1.5 font-medium">
+          <BotMessageSquare size={12} className="text-[var(--text-muted)]" />
+         VeriPy only answers using the provided document context.
         </p>
       </div>
 

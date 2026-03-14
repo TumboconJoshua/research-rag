@@ -3,6 +3,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConvexProvider, ConvexReactClient } from "convex/react";
 import { useState } from "react";
 
+import { ThemeProvider } from "next-themes";
+
 const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
 export function Providers({ children }: { children: React.ReactNode }) {
@@ -20,7 +22,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <ConvexProvider client={convex}>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          {children}
+        </ThemeProvider>
+      </QueryClientProvider>
     </ConvexProvider>
   );
 }

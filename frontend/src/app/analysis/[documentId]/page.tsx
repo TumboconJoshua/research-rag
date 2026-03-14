@@ -25,6 +25,7 @@ import {
   ArrowLeft,
 } from "lucide-react";
 import Link from "next/link";
+import ThemeToggle from "@/components/ThemeToggle";
 
 type Tab = "analysis" | "references" | "chat";
 
@@ -117,9 +118,12 @@ export default function AnalysisPage() {
 
   return (
     <main
-      className="min-h-screen bg-grid"
+      className="min-h-screen bg-grid transition-colors duration-300"
       style={{ background: "var(--bg-base)" }}
     >
+      <div className="absolute top-6 right-6 z-50">
+        <ThemeToggle />
+      </div>
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Back + Header */}
         <div className="mb-8 animate-fade-in">
